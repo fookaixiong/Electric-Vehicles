@@ -1,0 +1,37 @@
+-- 1) county in WA with the most BEV Sales
+SELECT  county, count(*) AS num_bev_sale
+FROM `electric-vehicle-356712.ev_data.us_ev`
+WHERE Electric_Vehicle_Type = "Battery Electric Vehicle (BEV)"
+GROUP BY county
+ORDER BY num_bev_sale DESC;
+
+-- 2) county in WA with the most EV Sales
+SELECT  county, count(*) AS num_ev_sale
+FROM `electric-vehicle-356712.ev_data.us_ev`
+GROUP BY county
+ORDER BY num_ev_sale DESC;
+
+--3) TOP EV cars in Washington
+SELECT  Make, count(*) AS no_of_cars
+FROM `electric-vehicle-356712.ev_data.us_ev`
+GROUP BY Make
+ORDER BY no_of_cars DESC;
+
+--4) TOP EV models in Washington
+SELECT  Model, count(*) AS no_of_cars
+FROM `electric-vehicle-356712.ev_data.us_ev`
+GROUP BY Model
+ORDER BY no_of_cars DESC;
+
+--5) US BEV AND PHEV CAR sales in US 2011 to 2021
+SELECT year, value, powertrain
+FROM `electric-vehicle-356712.ev_data.global_ev`
+WHERE region = "USA" AND mode = "Cars" AND unit = "sales" AND category = "Historical"
+ORDER BY YEAR;
+
+--6) EV CAR sales around he world 2011 to 2021
+SELECT region, year, sum(value) AS total_ev
+FROM `electric-vehicle-356712.ev_data.global_ev`
+WHERE mode = "Cars" AND unit = "sales" AND category = "Historical"
+GROUP BY region, year
+ORDER BY region;
